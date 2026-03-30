@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ▶️ How to Run
 1. Start services
 docker compose up -d
@@ -106,3 +107,6 @@ To handle failures (e.g., pipeline crashes midway through a 10GB batch):
   * Load data into staging table first
   * Validate → then merge into final table
 
+=======
+# Airflow-Integration-
+>>>>>>> 816b69b82344fda0b4743aaef7dbaec7fa075fc6
