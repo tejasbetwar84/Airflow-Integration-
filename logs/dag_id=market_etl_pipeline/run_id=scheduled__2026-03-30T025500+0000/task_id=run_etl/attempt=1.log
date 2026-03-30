@@ -1,0 +1,42 @@
+[2026-03-30T03:00:01.575+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-30T02:55:00+00:00 [queued]>
+[2026-03-30T03:00:01.588+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-30T02:55:00+00:00 [queued]>
+[2026-03-30T03:00:01.589+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 3
+[2026-03-30T03:00:01.610+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): run_etl> on 2026-03-30 02:55:00+00:00
+[2026-03-30T03:00:01.622+0000] {standard_task_runner.py:60} INFO - Started process 546 to run task
+[2026-03-30T03:00:01.633+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'market_etl_pipeline', 'run_etl', 'scheduled__2026-03-30T02:55:00+00:00', '--job-id', '84', '--raw', '--subdir', 'DAGS_FOLDER/etl_dag.py', '--cfg-path', '/tmp/tmp1d4y6wyq']
+[2026-03-30T03:00:01.639+0000] {standard_task_runner.py:88} INFO - Job 84: Subtask run_etl
+[2026-03-30T03:00:01.870+0000] {task_command.py:423} INFO - Running <TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-30T02:55:00+00:00 [running]> on host f100b222ca3f
+[2026-03-30T03:00:02.108+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='market_etl_pipeline' AIRFLOW_CTX_TASK_ID='run_etl' AIRFLOW_CTX_EXECUTION_DATE='2026-03-30T02:55:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-30T02:55:00+00:00'
+[2026-03-30T03:00:02.203+0000] {extract.py:31} WARNING - Attempt 1 failed: Invalid response format
+[2026-03-30T03:00:04.213+0000] {extract.py:25} INFO - Extracted 10 records
+[2026-03-30T03:00:04.214+0000] {extract.py:26} INFO - Sample: [{'instrument_id': 'GOOG', 'price': 33416.84, 'volume': 946.65, 'timestamp': '2026-03-30T03:00:04.211004'}, {'instrument_id': 'AAPL', 'price': 22721.24, 'volume': 317.05, 'timestamp': '2026-03-30T03:00:04.211141'}]
+[2026-03-30T03:00:04.218+0000] {validate.py:23} WARNING - Validation failed: 1 validation error for MarketData
+price
+  Input should be a valid number, unable to parse string as a number [type=float_parsing, input_value='invalid', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/float_parsing
+[2026-03-30T03:00:04.219+0000] {validate.py:23} WARNING - Validation failed: 1 validation error for MarketData
+price
+  Input should be a valid number, unable to parse string as a number [type=float_parsing, input_value='invalid', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/float_parsing
+[2026-03-30T03:00:04.220+0000] {validate.py:26} INFO - Valid records: 8, Dropped: 2
+[2026-03-30T03:00:04.249+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etl_dag.py", line 22, in run_etl
+    load_data(transformed_data)
+  File "/opt/airflow/etl/load.py", line 54, in load_data
+    execute_values(cursor, query, values)
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.InvalidColumnReference: there is no unique or exclusion constraint matching the ON CONFLICT specification
+
+[2026-03-30T03:00:04.278+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=market_etl_pipeline, task_id=run_etl, execution_date=20260330T025500, start_date=20260330T030001, end_date=20260330T030004
+[2026-03-30T03:00:04.298+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 84 for task run_etl (there is no unique or exclusion constraint matching the ON CONFLICT specification
+; 546)
+[2026-03-30T03:00:04.333+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-30T03:00:04.355+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

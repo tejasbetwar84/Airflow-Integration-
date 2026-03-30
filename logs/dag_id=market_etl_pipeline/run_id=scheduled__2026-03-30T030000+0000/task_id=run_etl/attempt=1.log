@@ -1,0 +1,16 @@
+[2026-03-30T03:05:00.939+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-30T03:00:00+00:00 [queued]>
+[2026-03-30T03:05:00.954+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-30T03:00:00+00:00 [queued]>
+[2026-03-30T03:05:00.955+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 3
+[2026-03-30T03:05:00.981+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): run_etl> on 2026-03-30 03:00:00+00:00
+[2026-03-30T03:05:00.994+0000] {standard_task_runner.py:60} INFO - Started process 649 to run task
+[2026-03-30T03:05:01.001+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'market_etl_pipeline', 'run_etl', 'scheduled__2026-03-30T03:00:00+00:00', '--job-id', '88', '--raw', '--subdir', 'DAGS_FOLDER/etl_dag.py', '--cfg-path', '/tmp/tmpntd7erbj']
+[2026-03-30T03:05:01.006+0000] {standard_task_runner.py:88} INFO - Job 88: Subtask run_etl
+[2026-03-30T03:05:01.149+0000] {task_command.py:423} INFO - Running <TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-30T03:00:00+00:00 [running]> on host f100b222ca3f
+[2026-03-30T03:05:01.289+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='market_etl_pipeline' AIRFLOW_CTX_TASK_ID='run_etl' AIRFLOW_CTX_EXECUTION_DATE='2026-03-30T03:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-30T03:00:00+00:00'
+[2026-03-30T03:05:01.360+0000] {extract.py:25} INFO - Extracted 10 records
+[2026-03-30T03:05:01.361+0000] {extract.py:26} INFO - Sample: [{'instrument_id': 'GOOG', 'price': 30456.15, 'volume': 506.65, 'timestamp': '2026-03-30T03:05:01.345747'}, {'instrument_id': 'GOOG', 'price': 25316.49, 'volume': 620.69, 'timestamp': '2026-03-30T03:05:01.345946'}]
+[2026-03-30T03:05:01.364+0000] {validate.py:26} INFO - Valid records: 10, Dropped: 0
+[2026-03-30T03:05:01.380+0000] {python.py:201} INFO - Done. Returned value was: None
+[2026-03-30T03:05:01.394+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=market_etl_pipeline, task_id=run_etl, execution_date=20260330T030000, start_date=20260330T030500, end_date=20260330T030501
+[2026-03-30T03:05:01.457+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-03-30T03:05:01.483+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

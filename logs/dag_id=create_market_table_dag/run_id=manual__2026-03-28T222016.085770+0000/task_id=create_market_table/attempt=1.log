@@ -1,0 +1,30 @@
+[2026-03-28T22:20:16.909+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: create_market_table_dag.create_market_table manual__2026-03-28T22:20:16.085770+00:00 [queued]>
+[2026-03-28T22:20:16.925+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: create_market_table_dag.create_market_table manual__2026-03-28T22:20:16.085770+00:00 [queued]>
+[2026-03-28T22:20:16.926+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2026-03-28T22:20:16.948+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): create_market_table> on 2026-03-28 22:20:16.085770+00:00
+[2026-03-28T22:20:16.963+0000] {standard_task_runner.py:60} INFO - Started process 946 to run task
+[2026-03-28T22:20:16.971+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'create_market_table_dag', 'create_market_table', 'manual__2026-03-28T22:20:16.085770+00:00', '--job-id', '28', '--raw', '--subdir', 'DAGS_FOLDER/create_market_table_dag.py', '--cfg-path', '/tmp/tmp25as7qf5']
+[2026-03-28T22:20:16.975+0000] {standard_task_runner.py:88} INFO - Job 28: Subtask create_market_table
+[2026-03-28T22:20:17.106+0000] {task_command.py:423} INFO - Running <TaskInstance: create_market_table_dag.create_market_table manual__2026-03-28T22:20:16.085770+00:00 [running]> on host f100b222ca3f
+[2026-03-28T22:20:17.328+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='create_market_table_dag' AIRFLOW_CTX_TASK_ID='create_market_table' AIRFLOW_CTX_EXECUTION_DATE='2026-03-28T22:20:16.085770+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-28T22:20:16.085770+00:00'
+[2026-03-28T22:20:17.345+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/create_market_table_dag.py", line 17, in create_market_table
+    cursor.execute("""
+psycopg2.errors.SyntaxError: syntax error at end of input
+LINE 12: 
+         ^
+
+[2026-03-28T22:20:17.376+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=create_market_table_dag, task_id=create_market_table, execution_date=20260328T222016, start_date=20260328T222016, end_date=20260328T222017
+[2026-03-28T22:20:17.401+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 28 for task create_market_table (syntax error at end of input
+LINE 12: 
+         ^
+; 946)
+[2026-03-28T22:20:17.425+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-28T22:20:17.451+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,33 @@
+[2026-03-30T02:56:03.234+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-30T02:50:00+00:00 [queued]>
+[2026-03-30T02:56:03.248+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-30T02:50:00+00:00 [queued]>
+[2026-03-30T02:56:03.249+0000] {taskinstance.py:2170} INFO - Starting attempt 2 of 3
+[2026-03-30T02:56:03.273+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): run_etl> on 2026-03-30 02:50:00+00:00
+[2026-03-30T02:56:03.289+0000] {standard_task_runner.py:60} INFO - Started process 462 to run task
+[2026-03-30T02:56:03.297+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'market_etl_pipeline', 'run_etl', 'scheduled__2026-03-30T02:50:00+00:00', '--job-id', '82', '--raw', '--subdir', 'DAGS_FOLDER/etl_dag.py', '--cfg-path', '/tmp/tmpzjhe8vh0']
+[2026-03-30T02:56:03.302+0000] {standard_task_runner.py:88} INFO - Job 82: Subtask run_etl
+[2026-03-30T02:56:03.426+0000] {task_command.py:423} INFO - Running <TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-30T02:50:00+00:00 [running]> on host f100b222ca3f
+[2026-03-30T02:56:03.755+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='market_etl_pipeline' AIRFLOW_CTX_TASK_ID='run_etl' AIRFLOW_CTX_EXECUTION_DATE='2026-03-30T02:50:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-30T02:50:00+00:00'
+[2026-03-30T02:56:03.863+0000] {extract.py:25} INFO - Extracted 10 records
+[2026-03-30T02:56:03.864+0000] {extract.py:26} INFO - Sample: [{'instrument_id': 'GOOG', 'price': 622.92, 'volume': 868.92, 'timestamp': '2026-03-30T02:56:03.839519'}, {'instrument_id': 'ETH-USD', 'price': 33497.18, 'volume': 966.53, 'timestamp': '2026-03-30T02:56:03.839751'}]
+[2026-03-30T02:56:03.869+0000] {validate.py:26} INFO - Valid records: 10, Dropped: 0
+[2026-03-30T02:56:03.897+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etl_dag.py", line 22, in run_etl
+    load_data(transformed_data)
+  File "/opt/airflow/etl/load.py", line 54, in load_data
+    execute_values(cursor, query, values)
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.InvalidColumnReference: there is no unique or exclusion constraint matching the ON CONFLICT specification
+
+[2026-03-30T02:56:03.938+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=market_etl_pipeline, task_id=run_etl, execution_date=20260330T025000, start_date=20260330T025603, end_date=20260330T025603
+[2026-03-30T02:56:03.971+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 82 for task run_etl (there is no unique or exclusion constraint matching the ON CONFLICT specification
+; 462)
+[2026-03-30T02:56:04.022+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-30T02:56:04.060+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

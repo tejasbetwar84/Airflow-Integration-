@@ -1,0 +1,37 @@
+[2026-03-28T22:21:02.872+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-28T22:15:00+00:00 [queued]>
+[2026-03-28T22:21:02.885+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-28T22:15:00+00:00 [queued]>
+[2026-03-28T22:21:02.886+0000] {taskinstance.py:2170} INFO - Starting attempt 2 of 3
+[2026-03-28T22:21:02.903+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): run_etl> on 2026-03-28 22:15:00+00:00
+[2026-03-28T22:21:02.917+0000] {standard_task_runner.py:60} INFO - Started process 958 to run task
+[2026-03-28T22:21:02.922+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'market_etl_pipeline', 'run_etl', 'scheduled__2026-03-28T22:15:00+00:00', '--job-id', '29', '--raw', '--subdir', 'DAGS_FOLDER/etl_dag.py', '--cfg-path', '/tmp/tmplztl5fkr']
+[2026-03-28T22:21:02.926+0000] {standard_task_runner.py:88} INFO - Job 29: Subtask run_etl
+[2026-03-28T22:21:03.029+0000] {task_command.py:423} INFO - Running <TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-28T22:15:00+00:00 [running]> on host f100b222ca3f
+[2026-03-28T22:21:03.214+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='market_etl_pipeline' AIRFLOW_CTX_TASK_ID='run_etl' AIRFLOW_CTX_EXECUTION_DATE='2026-03-28T22:15:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-28T22:15:00+00:00'
+[2026-03-28T22:21:03.227+0000] {extract.py:23} INFO - Extracted 10 records
+[2026-03-28T22:21:03.228+0000] {logging_mixin.py:188} INFO - [{'instrument_id': 'ETH-USD', 'price': 39035.81, 'volume': 495.89, 'timestamp': '2026-03-28T22:21:03.224903'}, {'instrument_id': 'GOOG', 'price': 5578.42, 'volume': 162.55, 'timestamp': '2026-03-28T22:21:03.224916'}, {'instrument_id': 'AAPL', 'price': 15145.39, 'volume': 557.19, 'timestamp': '2026-03-28T22:21:03.224922'}, {'instrument_id': 'GOOG', 'price': 38519.92, 'volume': 50.04, 'timestamp': '2026-03-28T22:21:03.224926'}, {'instrument_id': 'GOOG', 'price': 8712.24, 'volume': 708.71, 'timestamp': '2026-03-28T22:21:03.224931'}, {'instrument_id': 'ETH-USD', 'price': 41702.66, 'volume': 85.2, 'timestamp': '2026-03-28T22:21:03.224935'}, {'instrument_id': 'ETH-USD', 'price': 7368.35, 'volume': 23.7, 'timestamp': '2026-03-28T22:21:03.224939'}, {'instrument_id': 'BTC-USD', 'price': 7362.91, 'volume': 656.28, 'timestamp': '2026-03-28T22:21:03.224944'}, {'instrument_id': 'AAPL', 'price': 22034.63, 'volume': 775.45, 'timestamp': '2026-03-28T22:21:03.224948'}, {'instrument_id': 'ETH-USD', 'price': 41632.36, 'volume': 929.15, 'timestamp': '2026-03-28T22:21:03.224952'}]
+[2026-03-28T22:21:03.230+0000] {validate.py:26} INFO - Valid records: 10, Dropped: 0
+[2026-03-28T22:21:03.242+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etl_dag.py", line 22, in run_etl
+    load_data(transformed_data)
+  File "/opt/airflow/etl/load.py", line 43, in load_data
+    execute_values(cursor, query, values)
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UndefinedColumn: column "instrument_id" of relation "market_data" does not exist
+LINE 3:         instrument_id, price, volume, timestamp, vwap, is_ou...
+                ^
+
+[2026-03-28T22:21:03.271+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=market_etl_pipeline, task_id=run_etl, execution_date=20260328T221500, start_date=20260328T222102, end_date=20260328T222103
+[2026-03-28T22:21:03.291+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 29 for task run_etl (column "instrument_id" of relation "market_data" does not exist
+LINE 3:         instrument_id, price, volume, timestamp, vwap, is_ou...
+                ^
+; 958)
+[2026-03-28T22:21:03.337+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-28T22:21:03.362+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,36 @@
+[2026-03-28T22:00:00.983+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-28T21:55:00+00:00 [queued]>
+[2026-03-28T22:00:01.003+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-28T21:55:00+00:00 [queued]>
+[2026-03-28T22:00:01.004+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 3
+[2026-03-28T22:00:01.028+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): run_etl> on 2026-03-28 21:55:00+00:00
+[2026-03-28T22:00:01.044+0000] {standard_task_runner.py:60} INFO - Started process 542 to run task
+[2026-03-28T22:00:01.082+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'market_etl_pipeline', 'run_etl', 'scheduled__2026-03-28T21:55:00+00:00', '--job-id', '12', '--raw', '--subdir', 'DAGS_FOLDER/etl_dag.py', '--cfg-path', '/tmp/tmp7_hn61sy']
+[2026-03-28T22:00:01.089+0000] {standard_task_runner.py:88} INFO - Job 12: Subtask run_etl
+[2026-03-28T22:00:01.380+0000] {task_command.py:423} INFO - Running <TaskInstance: market_etl_pipeline.run_etl scheduled__2026-03-28T21:55:00+00:00 [running]> on host f100b222ca3f
+[2026-03-28T22:00:01.676+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='market_etl_pipeline' AIRFLOW_CTX_TASK_ID='run_etl' AIRFLOW_CTX_EXECUTION_DATE='2026-03-28T21:55:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-28T21:55:00+00:00'
+[2026-03-28T22:00:01.696+0000] {extract.py:23} INFO - Extracted 10 records
+[2026-03-28T22:00:01.697+0000] {validate.py:26} INFO - Valid records: 10, Dropped: 0
+[2026-03-28T22:00:01.740+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etl_dag.py", line 22, in run_etl
+    load_data(transformed_data)
+  File "/opt/airflow/etl/load.py", line 43, in load_data
+    execute_values(cursor, query, values)
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UndefinedColumn: column "instrument_id" of relation "market_data" does not exist
+LINE 3:         instrument_id, price, volume, timestamp, vwap, is_ou...
+                ^
+
+[2026-03-28T22:00:01.804+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=market_etl_pipeline, task_id=run_etl, execution_date=20260328T215500, start_date=20260328T220000, end_date=20260328T220001
+[2026-03-28T22:00:01.821+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 12 for task run_etl (column "instrument_id" of relation "market_data" does not exist
+LINE 3:         instrument_id, price, volume, timestamp, vwap, is_ou...
+                ^
+; 542)
+[2026-03-28T22:00:01.857+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-28T22:00:01.888+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check
